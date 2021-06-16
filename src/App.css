@@ -1,3 +1,14 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto&display=swap");
 * {
+  box-sizing: border-box;
   margin: 0;
+}
+
+body {
+  background: rgb(226, 163, 255);
+  background: linear-gradient(
+    0deg,
+    rgba(226, 163, 255, 1) 23%,
+    rgba(28, 166, 232, 1) 90%
+  );
 }

@@ -1,12 +1,19 @@
 import React from "react";
 import Post from "./Post";
+import styled from "styled-components";
 
 function Posts({ posts }) {
   return (
-    <div>
+    <Container>
       {posts && posts.map((post) => <Post key={post["_id"]} post={post} />)}
-    </div>
+    </Container>
   );
 }
 
 export default Posts;
+
+const Container = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;

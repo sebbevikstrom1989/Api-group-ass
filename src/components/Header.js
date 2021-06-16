@@ -3,26 +3,21 @@ import styled from "styled-components";
 import { Link } from "react-router-dom";
 
 function Header() {
-  const [header, setHeader] = useState("ADMIN");
+  const [header, setHeader] = useState(false);
 
-  const toggleHeader = (e) => {
-    console.log(e.target.innerHTML);
-    if (e.target.innerHTML === "ADMIN") {
-      setHeader("HOME");
-    } else {
-      setHeader("ADMIN");
-    }
+  const toggleHeader = () => {
+    setHeader(!header);
   };
 
   return (
     <Container>
-      {header === "ADMIN" ? (
+      {header === false ? (
         <Link to="/admin">
-          <h3 onClick={toggleHeader}>{header}</h3>
+          <h3 onClick={toggleHeader}>ADMIN</h3>
         </Link>
       ) : (
         <Link to="/">
-          <h3 onClick={toggleHeader}>{header}</h3>
+          <h3 onClick={toggleHeader}>HOME</h3>
         </Link>
       )}
     </Container>
@@ -35,5 +30,6 @@ const Container = styled.div`
   display: flex;
   justify-content: flex-end;
   align-items: center;
+  width: 100%;
   height: 70px;
 `;

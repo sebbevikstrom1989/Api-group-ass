@@ -6,6 +6,7 @@ import { Link } from "react-router-dom";
 function ManageItems() {
   const [posts, setPost] = useState([]);
 
+  // Display all posts!
   const fetchAllPosts = async () => {
     await fetch("http://localhost:5000/posts")
       .then((response) => response.json())
@@ -19,8 +20,16 @@ function ManageItems() {
     fetchAllPosts();
   }, []);
 
+  // Delete posts
+  const deletePost = async (postId) => {
+    await fetch("http://localhost:5000/posts/" + postId, {
+      method: "DELETE",
+    });
+    fetchAllPosts();
+  };
+
   return (
-    <div>
+    <Container>
       <Table>
         <thead>
           <tr>
@@ -29,23 +38,28 @@ function ManageItems() {
             <th>Author</th>
             <th>Tags</th>
             <th>Date</th>
+            <th>Actions</th>
           </tr>
         </thead>
 
         <tbody>
           {posts.map((post) => (
-            <AdminPosts post={post} key={post["_id"]} />
+            <AdminPosts post={post} key={post["_id"]} deletePost={deletePost} />
           ))}
         </tbody>
       </Table>
       <Link to="/create">
         <button>CREATE NEW POST</button>
       </Link>
-    </div>
+    </Container>
   );
 }
 
 export default ManageItems;
+
+const Container = styled.div`
+  height: 100vh;
+`;
 
 const Table = styled.table`
   margin-top: 50px;

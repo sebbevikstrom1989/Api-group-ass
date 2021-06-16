@@ -1,13 +1,17 @@
 import React, { useState } from "react";
-import styled from "styled-components";
+import { useHistory } from "react-router-dom";
+import PostForm from "../../components/PostForm";
 
 function CreateItem() {
   const [post, setPost] = useState({});
+  const history = useHistory();
 
   const handleChange = (e) => {
+    const { name, value } = e.target;
+    console.log(name);
     setPost({
       ...post,
-      postName: e.target.value,
+      [name]: value,
     });
   };
 
@@ -19,6 +23,7 @@ function CreateItem() {
       author: post.author,
       tags: post.tags,
       content: post.content,
+      url: post.url,
     };
 
     let response = await fetch("http://localhost:5000/posts", {
@@ -28,43 +33,22 @@ function CreateItem() {
       },
       body: JSON.stringify(postData),
     });
+    if (!response.ok) {
+      throw new Error("Server error: " + response.status);
+    }
+    history.push("admin");
   };
 
   return (
     <div>
-      <Form onSubmit={handleSubmit}>
-        <input
-          type="text"
-          name="title"
-          placeholder="TITLE"
-          value={post.title}
-          onChange={handleChange}
-        />
-        <input
-          type="text"
-          placeholder="AUTHOR"
-          value={post.author}
-          onChange={handleChange}
-        />
-        <input type="text" placeholder="TAGS" value={post.tags} />
-        <textarea type="text" placeholder="CONTENT" value={post.content} />
-        <button>CREATE</button>
-      </Form>
+      <PostForm
+        handleChange={handleChange}
+        handleSubmit={handleSubmit}
+        post={post}
+        pageId="create-form"
+      />
     </div>
   );
 }
 
 export default CreateItem;
-
-const Form = styled.form`
-  display: flex;
-  flex-direction: column;
-
-  input {
-    height: 30px;
-  }
-
-  textarea {
-    height: 100px;
-  }
-`;
