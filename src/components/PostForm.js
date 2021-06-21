@@ -1,4 +1,6 @@
 import React from "react";
+import { Button } from "@material-ui/core";
+import TextField from "@material-ui/core/TextField";
 import styled from "styled-components";
 
 function postForm({ post, handleSubmit, handleChange, pageId }) {
@@ -8,45 +10,51 @@ function postForm({ post, handleSubmit, handleChange, pageId }) {
     return `${dateObj.getFullYear()}-${dateObj.getMonth()}-${dateObj.getDate()} ${dateObj.getHours()}:${dateObj.getMinutes()}`;
   };
   return (
-    <div>
+    <Container>
       <Form onSubmit={handleSubmit}>
-        <input
+        <TextField
           onChange={handleChange}
           type="text"
           name="title"
-          placeholder="TITLE"
+          label="TITLE"
+          variant="outlined"
           value={post.title || ""}
           required
         />
-        <input
+        <TextField
           onChange={handleChange}
           type="text"
           name="author"
-          placeholder="AUTHOR"
+          label="AUTHOR"
+          variant="outlined"
           value={post.author || ""}
           required
         />
-        <input
+        <TextField
           onChange={handleChange}
           type="text"
           name="tags"
-          placeholder="TAGS"
+          label="TAGS"
+          variant="outlined"
           value={post.tags || ""}
           required
         />
-        <input
+        <TextField
           onChange={handleChange}
           type="text"
           name="url"
-          placeholder="URL"
+          label="URL"
+          variant="outlined"
           value={post.url || ""}
-          required
         />
-        <textarea
+        <TextField
           onChange={handleChange}
           type="text"
           name="content"
-          placeholder="CONTENT"
+          label="CONTENT"
+          variant="outlined"
+          multiline
+          rows={5}
           value={post.content || ""}
           required
         />
@@ -55,17 +63,28 @@ function postForm({ post, handleSubmit, handleChange, pageId }) {
         ) : (
           ""
         )}
-        <button>{pageId === "update-post" ? "UPDATE" : "CREATE"}</button>
+        <Button type="submit" variant="contained" color="primary">
+          {pageId === "update-post" ? "UPDATE" : "CREATE"}
+        </Button>
       </Form>
-    </div>
+    </Container>
   );
 }
 
 export default postForm;
 
+const Container = styled.div`
+  display: flex;
+  justify-content: center;
+  min-height: calc(100vh - 70px);
+`;
+
 const Form = styled.form`
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
+  height: 600px;
+  width: 600px;
 
   input {
     height: 30px;

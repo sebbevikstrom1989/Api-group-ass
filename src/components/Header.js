@@ -30,6 +30,17 @@ const Container = styled.div`
   display: flex;
   justify-content: flex-end;
   align-items: center;
-  width: 100%;
   height: 70px;
+  margin-right: 50px;
+
+  a {
+    text-decoration: none;
+    color: whitesmoke;
+    transition: all 250ms cubic-bezier(0.25, 0.46, 0.45, 0.94) 0s;
+
+    &:hover {
+      color: lightgrey;
+      transform: scale(1.05);
+    }
+  }
 `;

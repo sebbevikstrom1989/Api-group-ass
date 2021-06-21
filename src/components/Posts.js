@@ -14,6 +14,6 @@ export default Posts;
 
 const Container = styled.div`
   display: flex;
-  flex-direction: column;
+  flex-direction: column-reverse;
   align-items: center;
 `;

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import AdminPosts from "../../components/AdminPosts";
+import { Button } from "@material-ui/core";
 import { Link } from "react-router-dom";
 
 function ManageItems() {
@@ -49,7 +50,9 @@ function ManageItems() {
         </tbody>
       </Table>
       <Link to="/create">
-        <button>CREATE NEW POST</button>
+        <Button variant="contained" color="primary">
+          Create Post
+        </Button>
       </Link>
     </Container>
   );
@@ -58,21 +61,32 @@ function ManageItems() {
 export default ManageItems;
 
 const Container = styled.div`
-  height: 100vh;
+  min-height: calc(100vh - 70px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  button {
+    margin-top: 20px;
+    font-size: 30px;
+    border-radius: 20px;
+  }
+  a {
+    text-decoration: none;
+  }
 `;
 
 const Table = styled.table`
-  margin-top: 50px;
   border-collapse: collapse;
-  margin: 25px 35px;
-  font-size: 1.6em;
-  color: rgb(0, 0, 0);
-  background-color: rgb(69, 90, 214);
-
+  margin: 0 35px;
+  width: 70%;
+  font-size: 1.2em;
+  background-color: rgba(28, 166, 232, 1) 90%;
   box-shadow: 0 0 20px rgb(0, 0, 0);
 
   thead tr {
-    background-color: #1f1d86;
+    background-color: #d629ce;
+    opacity: 0.9;
     color: #ffffff;
     text-align: center;
   }
@@ -81,10 +95,10 @@ const Table = styled.table`
   th,
   td {
     padding: 12px 15px;
-    border: 1px rgb(0, 0, 0) solid;
+    border: 2px rgb(0, 0, 0) solid;
   }
   td {
     height: 35px;
-    vertical-align: bottom;
+    text-align: center;
   }
 `;

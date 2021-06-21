@@ -4,28 +4,43 @@ import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 function Post({ post }) {
+  const myDate = post.date;
+  function formatDate(myDate) {
+    let dateString = String(myDate).slice(0, 16).replace("T", " ");
+
+    return dateString;
+  }
+
+  let str = post.content;
+  const length = 100;
+  let trimmedString = str.substring(0, length);
+
+  if (str.length > 100) {
+    trimmedString = str.substring(0, length) + "...";
+  } else {
+    trimmedString = str.substring(0, length);
+  }
+
   return (
     <Container>
-      <div>
-        <ImgContainer>
-          <img src={post.url} alt={post.title} />
-        </ImgContainer>
-        <PostContent>
-          <span>#{post.tags}</span>
-          <h2>{post.title}</h2>
-          <p>{post.content}</p>
-        </PostContent>
+      <ImgContainer>
+        <img src={post.url} alt={post.title} />
+      </ImgContainer>
+      <PostContent>
+        <span>#{post.tags}</span>
+        <h2>{post.title}</h2>
+        <p>{trimmedString}</p>
+      </PostContent>
 
-        <Author>
-          <Link to={`/post/${post["_id"]}`}>
-            <Button variant="contained" color="primary">
-              Read More
-            </Button>
-          </Link>
-          <p>{post.author}</p>
-          <p>{post.date}</p>
-        </Author>
-      </div>
+      <Author>
+        <Link to={`/post/${post["_id"]}`}>
+          <Button variant="contained" color="primary">
+            Read More
+          </Button>
+        </Link>
+        <p>{post.author}</p>
+        <p>{formatDate(myDate)}</p>
+      </Author>
     </Container>
   );
 }
@@ -33,9 +48,6 @@ function Post({ post }) {
 export default Post;
 const Container = styled.div`
   width: 600px;
-  display: flex;
-  justify-content: center;
-  flex-direction: column;
   align-items: center;
   box-shadow: 0 2px 20px rgba(0, 0, 0, 0.2);
   background-color: #fff;
