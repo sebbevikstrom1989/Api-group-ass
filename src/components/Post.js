@@ -2,6 +2,7 @@ import React from "react";
 import { Button } from "@material-ui/core";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
+import { motion } from "framer-motion";
 
 function Post({ post }) {
   const myDate = post.date;
@@ -11,7 +12,7 @@ function Post({ post }) {
     return dateString;
   }
 
-  let str = post.content;
+  const str = post.content;
   const length = 100;
   let trimmedString = str.substring(0, length);
 
@@ -22,11 +23,27 @@ function Post({ post }) {
   }
 
   return (
-    <Container>
+    <Container
+      initial={{ opacity: 0, x: -180 }}
+      animate={{ opacity: 1, x: 0 }}
+      transition={{
+        ease: "easeInOut",
+        duration: 1,
+        delay: 0.2,
+      }}
+    >
       <ImgContainer>
         <img src={post.url} alt={post.title} />
       </ImgContainer>
-      <PostContent>
+      <PostContent
+        initial={{ opacity: 0, y: 180 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{
+          ease: "easeInOut",
+          duration: 1,
+          delay: 0.8,
+        }}
+      >
         <span>#{post.tags}</span>
         <h2>{post.title}</h2>
         <p>{trimmedString}</p>
@@ -46,7 +63,7 @@ function Post({ post }) {
 }
 
 export default Post;
-const Container = styled.div`
+const Container = styled(motion.div)`
   width: 600px;
   align-items: center;
   box-shadow: 0 2px 20px rgba(0, 0, 0, 0.2);
@@ -86,7 +103,7 @@ const Author = styled.div`
     background-color: rgba(20, 166, 232, 0.8);
   }
 `;
-const PostContent = styled.div`
+const PostContent = styled(motion.div)`
   padding: 10px;
   span {
     background: #9543bc;

@@ -13,7 +13,6 @@ function ManageItems() {
       .then((response) => response.json())
       .then((data) => {
         setPost(data);
-        console.log(data);
       });
   };
 
@@ -69,7 +68,6 @@ const Container = styled.div`
   button {
     margin-top: 20px;
     font-size: 30px;
-    border-radius: 20px;
   }
   a {
     text-decoration: none;

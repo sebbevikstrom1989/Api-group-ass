@@ -2,13 +2,15 @@ import React from "react";
 import { Button } from "@material-ui/core";
 import TextField from "@material-ui/core/TextField";
 import styled from "styled-components";
+import { Link } from "react-router-dom";
 
 function postForm({ post, handleSubmit, handleChange, pageId }) {
-  const formatDate = (date) => {
-    let dateObj = new Date(date);
+  const myDate = post.date;
+  function formatDate(myDate) {
+    let dateString = String(myDate).slice(0, 16).replace("T", " ");
 
-    return `${dateObj.getFullYear()}-${dateObj.getMonth()}-${dateObj.getDate()} ${dateObj.getHours()}:${dateObj.getMinutes()}`;
-  };
+    return dateString;
+  }
   return (
     <Container>
       <Form onSubmit={handleSubmit}>
@@ -59,13 +61,20 @@ function postForm({ post, handleSubmit, handleChange, pageId }) {
           required
         />
         {pageId === "update-post" ? (
-          <p>Created at: {formatDate(post.date)}</p>
+          <p>Created at: {formatDate(myDate)}</p>
         ) : (
           ""
         )}
-        <Button type="submit" variant="contained" color="primary">
-          {pageId === "update-post" ? "UPDATE" : "CREATE"}
-        </Button>
+        <ButtonGrp>
+          <Button type="submit" variant="contained" color="primary">
+            {pageId === "update-post" ? "UPDATE" : "CREATE"}
+          </Button>
+          <Link to="/admin">
+            <Button type="submit" variant="contained" color="primary">
+              BACK
+            </Button>
+          </Link>
+        </ButtonGrp>
       </Form>
     </Container>
   );
@@ -92,5 +101,17 @@ const Form = styled.form`
 
   textarea {
     height: 100px;
+  }
+`;
+
+const ButtonGrp = styled.div`
+  display: flex;
+  justify-content: center;
+
+  button {
+    margin-left: 10px;
+  }
+  a {
+    text-decoration: none;
   }
 `;

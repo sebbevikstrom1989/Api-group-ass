@@ -21,7 +21,6 @@ function UpdateItem({ match }) {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    console.log(name);
     setPost({
       ...post,
       [name]: value,
